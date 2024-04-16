@@ -1,0 +1,7 @@
+/vendor
+/node_mogules
+/config/db.php
+/config/storage.php
+.env
+.vscode
+.DS_Store
