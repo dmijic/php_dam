@@ -1,2 +1,0 @@
-<?php
-loadView('users/create');

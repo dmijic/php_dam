@@ -1,14 +1,27 @@
 <?php
 
-return [
-    '/' => 'controllers/home.php',
-    '/products' => 'controllers/products/index.php',
-    '/products/create' => 'controllers/products/create.php',
-    '/brands' => 'controllers/brands/index.php',
-    '/brands/create' => 'controllers/brands/create.php',
-    '/my-profile' => 'controllers/users/index.php',
-    '/my-account' => 'controllers/users/account.php',
-    '/help' => 'controllers/users/help.php',
-    '/new-user' => 'controllers/users/create.php',
-    '404' => 'controllers/error/404.php'
-];
+$router->get('/', 'HomeController@index');
+
+//Products
+$router->get('/products', 'ProductsController@index');
+$router->get('/products/by_brand', 'ProductsController@by_brand');
+$router->get('/products/single_product', 'ProductsController@single_product');
+$router->get('/products/create', 'ProductsController@create');
+
+//Brands
+$router->get('/brands', 'BrandsController@index');
+$router->get('/brands/create', 'BrandsController@create');
+
+//Ingredients
+$router->get('/ingredients', 'IngredientsController@index');
+$router->get('/ingredients/create', 'IngredientsController@create');
+
+//Claims
+$router->get('/claims', 'ClaimsController@index');
+$router->get('/claims/create', 'ClaimsController@create');
+
+//Users
+$router->get('/my-profile', 'UsersController@index');
+$router->get('/my-account', 'UsersController@account');
+$router->get('/help', 'UsersController@help');
+$router->get('/new-user', 'UsersController@create');

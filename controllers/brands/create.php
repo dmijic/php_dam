@@ -1,2 +1,0 @@
-<?php
-loadView('brands/create');

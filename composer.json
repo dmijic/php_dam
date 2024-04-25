@@ -1,0 +1,16 @@
+{
+    "name": "dmijic/php_dam",
+    "description": "",
+    "authors": [
+        {
+            "name": "Dario Mijić",
+            "email": "dario.mijic@gmx.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework/",
+            "App\\": "App/"
+        }
+    }
+}
