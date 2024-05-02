@@ -1,3 +1,13 @@
+<?php
+
+use Framework\Database;
+
+$config = require basePath('config/db.php');
+$db = new Database($config);
+$brands = $db->query('SELECT * FROM brands')->fetchAll();
+
+?>
+
 <section class="section dashboard">
     <div class="row align-items-top">
 
@@ -16,8 +26,8 @@
                                 <h6>Opcije</h6>
                             </li>
 
-                            <li><a class="dropdown-item" href="/brands?brand_id=<?= slugify($brand->id) ?>">Brend materijali</a></li>
-                            <li><a class="dropdown-item" href="/products/by_brand?brand_id=<?= slugify($brand->id) ?>">Pregled proizvoda</a></li>
+                            <li><a class="dropdown-item" href="/brands/<?= slugify($brand->id) ?>">Brend materijali</a></li>
+                            <li><a class="dropdown-item" href="/products/<?= slugify($brand->id) ?>">Pregled proizvoda</a></li>
                             <li><a class="dropdown-item" href="/brands/edit/<?= slugify($brand->brand_name) ?>">Uredi brend</a></li>
                         </ul>
                     </div>

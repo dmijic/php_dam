@@ -21,9 +21,8 @@ class UsersController
      */
     public function index()
     {
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
         $users = $this->db->query('SELECT * FROM users')->fetchAll();
-        loadView('users/index', ['brands' => $brands, 'products' => $users]);
+        loadView('users/index', ['products' => $users]);
     }
 
     /**

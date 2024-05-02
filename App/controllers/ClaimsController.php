@@ -21,10 +21,9 @@ class ClaimsController
      */
     public function index()
     {
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
         $ingredients = $this->db->query('SELECT * FROM ingredients')->fetchAll();
         $claims = $this->db->query('SELECT * FROM claims')->fetchAll();
-        loadView('claims/index', ['ingredients' => $ingredients, 'claims' => $claims, 'brands' => $brands]);
+        loadView('claims/index', ['ingredients' => $ingredients, 'claims' => $claims]);
     }
 
     /**

@@ -1,11 +1,11 @@
 <?= loadPartial('head') ?>
 <?= loadPartial('navbar') ?>
-<?= loadPartial('sidebar', ['brands' => $brands]) ?>
+<?= loadPartial('sidebar') ?>
 
 <main id="main" class="main">
 
     <?= loadPartial('pagetitle', ['title' => 'Početna']); ?>
-    <?= loadPartial('dashboard', ['brands' => $brands, 'products' => $products]) ?>
+    <?= loadPartial('dashboard', ['products' => $products]) ?>
 
 </main><!-- End #main -->
 

@@ -25,11 +25,11 @@ loadPartial('sidebar');
                     <!-- Card with an image on top -->
 
                     <div class="card">
-                        <a href="/product/<?= $product->id ?>"><img src="<?= $product->product_image_url ?>" class="card-img-top" alt="..."></a>
+                        <a href="/products/single_product?id=<?= $product->id ?>"><img src="<?= $product->product_image_url ?>" class="card-img-top" alt="..."></a>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="/product/<?= $product->id ?>"><?= $product->name ?></a></h5>
+                            <h5 class="card-title"><a href="/products/single_product?id=<?= $product->id ?>"><?= $product->name ?></a></h5>
                             <p class="card-text"><?= showExcerpt($product->product_description, 60) ?></p>
-                            <a href="/product/<?= $product->id ?>" class="btn btn-primary">Pregled</a>
+                            <a href="/products/single_product?id=<?= $product->id ?>" class="btn btn-primary">Pregled</a>
                         </div>
                     </div>
                     <!-- End Card with an image on top -->

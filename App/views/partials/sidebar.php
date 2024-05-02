@@ -1,3 +1,16 @@
+<?php
+
+use Framework\Database;
+
+$config = require basePath('config/db.php');
+$db = new Database($config);
+$brands = $db->query('SELECT * FROM brands')->fetchAll();
+
+?>
+
+
+
+
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 
@@ -49,7 +62,7 @@
 
                 <?php foreach ($brands as $brand) : ?>
                     <li>
-                        <a href="/products/by_brand?brand_id=<?= slugify($brand->id) ?>">
+                        <a href="/products/<?= slugify($brand->id) ?>">
                             <img src="<?= $brand->brand_logo_url ?>" alt="" style="max-width: 35px; height: auto; margin-right: 15px"><span><?= $brand->brand_name ?></span>
                         </a>
                     </li>
@@ -116,7 +129,7 @@
 
                 <?php foreach ($brands as $brand) : ?>
                     <li>
-                        <a href="/social_media/<?= slugify($brand->brand_name) ?>">
+                        <a href="/social_media/by_brand?=<?= slugify($brand->brand_name) ?>">
                             <img src="<?= $brand->brand_logo_url ?>" alt="" style="max-width: 35px; height: auto; margin-right: 15px"><span><?= $brand->brand_name ?></span>
                         </a>
                     </li>

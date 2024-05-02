@@ -2,7 +2,7 @@
 
 loadPartial('head');
 loadPartial('navbar');
-loadPartial('sidebar', ['brands' => $brands]);
+loadPartial('sidebar');
 
 ?>
 

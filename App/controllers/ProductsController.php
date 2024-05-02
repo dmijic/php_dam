@@ -21,27 +21,19 @@ class ProductsController
      */
     public function index()
     {
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
         $products = $this->db->query('SELECT * FROM products')->fetchAll();
-        loadView('products/index', ['brands' => $brands, 'products' => $products]);
+        loadView('products/index', ['products' => $products]);
     }
 
     /**
-     * Show products by the brand
-     *
+     * Show all products
+     * 
      * @return void
      */
-    public function by_brand()
+    public function by_brand($params)
     {
-        $brand = $_GET['brand_id'] ?? '';
-
-        $params = [
-            'brand' => $brand
-        ];
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
         $products = $this->db->query('SELECT * FROM products WHERE brand_id = :brand', $params)->fetchAll();
-
-        loadView('products/by_brand', ['brands' => $brands, 'products' => $products]);
+        loadView('products/index', ['products' => $products]);
     }
 
     /**
@@ -52,25 +44,5 @@ class ProductsController
     public function create()
     {
         loadView('products/create');
-    }
-
-    /**
-     * Show single product
-     *
-     * @return void
-     */
-    public function single_product()
-    {
-        $id = $_GET['id'] ?? '';
-
-        $params = [
-            'id' => $id
-        ];
-
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
-        $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
-        $brand = $this->db->query('SELECT * FROM brands WHERE id = ' . $product->brand_id)->fetch();
-
-        loadView('products/single_product', ['product' => $product, 'brand' => $brand, 'brands' => $brands]);
     }
 }

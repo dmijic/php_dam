@@ -21,11 +21,10 @@ class IngredientsController
      */
     public function index()
     {
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
         $ingredients = $this->db->query('SELECT * FROM ingredients')->fetchAll();
         $claims = $this->db->query('SELECT * FROM claims')->fetchAll();
 
-        loadView('ingredients/index', ['ingredients' => $ingredients, 'claims' => $claims, 'brands' => $brands]);
+        loadView('ingredients/index', ['ingredients' => $ingredients, 'claims' => $claims]);
     }
 
     /**

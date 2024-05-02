@@ -21,8 +21,7 @@ class HomeController
      */
     public function index()
     {
-        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
         $products = $this->db->query('SELECT * FROM products')->fetchAll();
-        loadView('home', ['brands' => $brands, 'products' => $products]);
+        loadView('home', ['products' => $products]);
     }
 }
