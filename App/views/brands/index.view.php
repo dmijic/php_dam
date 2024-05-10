@@ -33,7 +33,7 @@ loadPartial('sidebar');
                         <div class="card-body">
                             <h5 class="card-title"><?= $brand->brand_name ?></h5>
                             <p class="card-text"><?= showExcerpt($brand->brand_description, 60) ?></p>
-                            <button type="button" class="btn btn-primary">Pregled</button>
+                            <a href="/brand/<?= $brand->id ?>" class="btn btn-primary">Pregled</a>
                         </div>
                     </div><!-- End Card with an image on top -->
 

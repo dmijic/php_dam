@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Validation;
 
 class ProductController
 {
@@ -23,34 +24,98 @@ class ProductController
     {
         $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
         $brand = $this->db->query('SELECT * FROM brands WHERE id = ' . $product->brand_id)->fetch();
+        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
+        $ingredients = $this->db->query('SELECT * FROM ingredients')->fetchAll();
+        $claims = $this->db->query('SELECT * FROM claims')->fetchAll();
 
-        loadView('products/single_product', ['product' => $product, 'brand' => $brand]);
+        loadView('products/single_product', ['product' => $product, 'brand' => $brand, 'ingredients' => $ingredients, 'claims' => $claims, 'brands' => $brands]);
     }
 
     /**
-     * Show products by the brand
-     *
+     * Delete a product
+     * 
+     * @param array $params
      * @return void
      */
-    public function by_brand()
+    public function destroy($params)
     {
-        $brand = $_GET['brand_id'] ?? '';
-
+        $id = $params['id'];
         $params = [
-            'brand' => $brand
+            'id' => $id
         ];
-        $products = $this->db->query('SELECT * FROM products WHERE brand_id = :brand', $params)->fetchAll();
 
-        loadView('products/by_brand', ['products' => $products]);
+        $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
+
+        if (!$product) {
+            ErrorController::notFound('Nema tog proizvoda.');
+            return;
+        }
+
+        $this->db->query('DELETE FROM products WHERE id = :id', $params);
+
+        // Set flash message
+        $_SESSION['success_message'] = "Proizvod <strong>{$product->name}</strong> je obrisan.";
+
+        redirect('/products');
     }
 
     /**
-     * Create new product
-     *
+     * Update a product
+     * 
+     * @param array $params
      * @return void
      */
-    public function create()
+    public function update($params)
     {
-        loadView('products/create');
+
+        $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
+        $brand = $this->db->query('SELECT * FROM brands WHERE id = ' . $product->brand_id)->fetch();
+        $brands = $this->db->query('SELECT * FROM brands')->fetchAll();
+        $ingredients = $this->db->query('SELECT * FROM ingredients')->fetchAll();
+        $claims = $this->db->query('SELECT * FROM claims')->fetchAll();
+
+        $id = $params['id'];
+
+        $allowedFields = ['name', 'product_description', 'product_image_url', 'brand_id', 'quantity', 'active_ingredients', 'suggested_use', 'remark'];
+        $updateValues = [];
+        $updateValues = array_intersect_key($_POST, array_flip($allowedFields));
+        $updateValues = array_map('sanitize', $updateValues);
+        $requiredFields = ['name'];
+
+        $errors = [];
+
+        if (empty($updateValues['brand_id'])) {
+            $updateValues['brand_id'] = $product->brand_id;
+        }
+
+        if (empty($updateValues['product_image_url'])) {
+            $updateValues['product_image_url'] = $product->product_image_url;
+        }
+
+        foreach ($requiredFields as $field) {
+            if (empty($updateValues[$field]) || !Validation::string($updateValues[$field])) {
+                $errors['$field'] = ucfirst($field) . ' polje je obavezno.';
+            }
+        }
+
+        if (!empty($errors)) {
+            loadView('products/single_product', ['product' => $product, 'brand' => $brand, 'ingredients' => $ingredients, 'claims' => $claims, 'brands' => $brands, 'errors' => $errors]);
+            exit;
+        } else {
+            // Submit to database
+            $updateFields = [];
+            foreach (array_keys($updateValues) as $field) {
+                $updateFields[] = "{$field} = :{$field}";
+            }
+
+            $updateFields = implode(', ', $updateFields);
+            $updateQuery = "UPDATE products SET $updateFields WHERE id = :id";
+
+            $updateValues['id'] = $id;
+            $this->db->query($updateQuery, $updateValues);
+
+            $_SESSION['success_message'] = 'Podaci su ažurirani.';
+            redirect('/product/' . $id);
+        }
     }
 }

@@ -22,7 +22,7 @@ loadPartial('sidebar');
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Default Accordion</h5>
+                        <h5 class="card-title">Odobrene tvrdnje</h5>
 
                         <!-- Default Accordion -->
                         <div class="accordion" id="accordionExample">
@@ -36,14 +36,16 @@ loadPartial('sidebar');
                                     </h2>
                                     <div id="collapse<?= $ingredient->id ?>" class="accordion-collapse collapse" aria-labelledby="heading<?= $ingredient->id ?>" data-bs-parent="#accordionExample" style="">
                                         <div class="accordion-body">
-                                            <ul class="list-group">
+                                            <p>
+                                                <?= $ingredient->description ?>
+                                            </p>
+                                            <ul class="list-group list-group-flush">
                                                 <?php foreach ($claims as $claim) : ?>
                                                     <?php if ($claim->ingredient_id === $ingredient->id) : ?>
                                                         <li class="list-group-item"><?= $claim->content ?></li>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             </ul>
-                                            <?= $ingredient->description ?>
                                         </div>
                                     </div>
                                 </div>

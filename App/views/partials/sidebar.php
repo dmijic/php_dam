@@ -95,6 +95,7 @@ $brands = $db->query('SELECT * FROM brands')->fetchAll();
             <a class="nav-link collapsed" data-bs-target="#edit-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-pencil-square"></i><span>Uređivanje</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
+
             <ul id="edit-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="/brands/create">

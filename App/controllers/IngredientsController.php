@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Validation;
+use Framework\Storage;
 
 class IngredientsController
 {
@@ -35,5 +37,49 @@ class IngredientsController
     public function create()
     {
         loadView('ingredients/create');
+    }
+
+    /**
+     * Store new ingredient in DB
+     * 
+     * @return void
+     */
+    public function store()
+    {
+        $allowedFields = ['name', 'description'];
+        $newIngredientData = array_intersect_key($_POST, array_flip($allowedFields));
+        $newIngredientData = array_map('sanitize', $newIngredientData);
+        $requiredFields = ['name'];
+
+        foreach ($requiredFields as $field) {
+            if (empty($newIngredientData[$field]) || !Validation::string($newIngredientData[$field])) {
+                $errors[$field] = ucfirst($field) . ' je obavezan podatak';
+            };
+        }
+        if (!empty($errors)) {
+            loadView('ingredients/create', ['errors' => $errors, 'ingredient' => $newIngredientData]);
+        } else {
+            foreach ($newIngredientData as $field => $value) {
+                $fields[] = $field;
+            }
+
+            $fields = implode(', ', $fields);
+            $values = [];
+
+            foreach ($newIngredientData as $field => $value) {
+                if ($value === '') {
+                    $newIngredientData[$field] = null;
+                }
+                $values[] = ':' . $field;
+            }
+            $values = implode(', ', $values);
+
+            $query = "INSERT INTO ingredients ({$fields}) VALUES ({$values})";
+
+            // inspectAndDie($newIngredientData);
+            $this->db->query($query, $newIngredientData);
+
+            redirect('/ingredients');
+        }
     }
 }
