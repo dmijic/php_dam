@@ -76,6 +76,8 @@ class BrandsController
 
             $this->db->query($query, $newBrandData);
 
+            $_SESSION['success_message'] = "Dodan je novi brend: <strong>{$newBrandData['brand_name']}</strong>.";
+
             redirect('/brands');
         }
     }

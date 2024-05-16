@@ -1,5 +1,7 @@
 <?php
 
+use App\Controllers\UsersController;
+
 $router->get('/', 'HomeController@index');
 
 //Products
@@ -28,6 +30,8 @@ $router->post('/brands', 'BrandsController@store');
 //Single brand
 $router->get('/brand/{id}', 'BrandController@index');
 
+$router->put('/brand/{id}', 'BrandController@update');
+
 $router->delete('/brand/{id}', 'BrandController@destroy');
 
 
@@ -54,9 +58,13 @@ $router->get('/social_media/create', 'SocialMediaController@create');
 
 //Users
 $router->get('/my-profile', 'UsersController@index');
-$router->get('/my-account', 'UsersController@account');
-$router->get('/help', 'UsersController@help');
 $router->get('/new-user', 'UsersController@create');
 
-//OpenAI
-$router->get('/openaitest/{query}', 'OpenAIController@test');
+$router->get('/my-account', 'UsersController@account');
+$router->get('/help', 'UsersController@help');
+
+$router->get('/login', 'UsersController@login');
+
+$router->post('/new-user', 'UsersController@store');
+$router->post('/logout', 'UsersController@logout');
+$router->post('/login', 'UsersController@authenticate');

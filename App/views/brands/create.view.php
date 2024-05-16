@@ -33,6 +33,8 @@ loadPartial('sidebar');
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Dodaj novi brend</h5>
+                        <?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
+
 
                         <!-- General Form Elements -->
                         <form method="POST" action="/brands">

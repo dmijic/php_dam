@@ -24,6 +24,8 @@ loadPartial('sidebar');
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Dodaj novi sastojak</h5>
+                        <?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
+
 
                         <!-- General Form Elements -->
                         <form method="POST" action="/ingredients">

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Framework\Database;
+use Framework\Validation;
 
 class BrandController
 {
@@ -58,6 +59,65 @@ class BrandController
 
         $this->db->query('DELETE FROM brands WHERE id = :id', $params);
 
+        // Set flash message
+        $_SESSION['success_message'] = "Brend <strong>{$brand->brand_name}</strong> je obrisan.";
+
         redirect('/brands');
+    }
+
+    /**
+     * Update a brand
+     * 
+     * @param array $params
+     * @return void
+     */
+    public function update($params)
+    {
+        $id = $params['id'];
+
+        $brand = $this->db->query('SELECT * FROM brands WHERE id = ' . $id)->fetch();
+        $products = $this->db->query('SELECT * FROM products WHERE brand_id = :id', $params)->fetchAll();
+        $ingredients = $this->db->query('SELECT * FROM ingredients')->fetchAll();
+        $claims = $this->db->query('SELECT * FROM claims')->fetchAll();
+
+
+
+        $allowedFields = ['brand_name', 'brand_logo_url', 'brand_description', 'brand_web_url'];
+        $updateValues = [];
+        $updateValues = array_intersect_key($_POST, array_flip($allowedFields));
+        $updateValues = array_map('sanitize', $updateValues);
+        $requiredFields = ['brand_name'];
+
+        $errors = [];
+
+        if (empty($updateValues['brand_logo_url'])) {
+            $updateValues['brand_logo_url'] = $brand->brand_logo_url;
+        }
+
+        foreach ($requiredFields as $field) {
+            if (empty($updateValues[$field]) || !Validation::string($updateValues[$field])) {
+                $errors['$field'] = ucfirst($field) . ' polje je obavezno.';
+            }
+        }
+
+        if (!empty($errors)) {
+            loadView('brands/single_brand', ['products' => $products, 'brand' => $brand, 'ingredients' => $ingredients, 'claims' => $claims, 'errors' => $errors]);
+            exit;
+        } else {
+            // Submit to database
+            $updateFields = [];
+            foreach (array_keys($updateValues) as $field) {
+                $updateFields[] = "{$field} = :{$field}";
+            }
+
+            $updateFields = implode(', ', $updateFields);
+            $updateQuery = "UPDATE brands SET $updateFields WHERE id = :id";
+
+            $updateValues['id'] = $id;
+            $this->db->query($updateQuery, $updateValues);
+
+            $_SESSION['success_message'] = 'Podaci su ažurirani.';
+            redirect('/brand/' . $id);
+        }
     }
 }

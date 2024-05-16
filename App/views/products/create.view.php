@@ -15,15 +15,6 @@ loadPartial('sidebar');
 
     ?>
 
-    <?php if (isset($errors)) : ?>
-        <?php foreach ($errors as $error) : ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <?= $error ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endforeach; ?>
-
-    <?php endif; ?>
 
     <section class="section">
         <div class="row">
@@ -32,6 +23,8 @@ loadPartial('sidebar');
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Dodaj novi proizvod</h5>
+                        <?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
+
 
                         <!-- General Form Elements -->
                         <form method="POST" action="/products" enctype="multipart/form-data">
