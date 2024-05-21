@@ -1,8 +1,7 @@
 /vendor
 /node_mogules
 /config/db.php
-/config/openai.php
-/config/storage.php
+/public/storage/
 .env
 .vscode
 .DS_Store
