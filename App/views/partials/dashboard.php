@@ -26,7 +26,7 @@ $brands = $db->query('SELECT * FROM brands')->fetchAll();
                                 <h6>Opcije</h6>
                             </li>
 
-                            <li><a class="dropdown-item" href="/brands/<?= slugify($brand->id) ?>">Brend materijali</a></li>
+                            <li><a class="dropdown-item" href="/brand/<?= slugify($brand->id) ?>">Brend materijali</a></li>
                             <li><a class="dropdown-item" href="/products/<?= slugify($brand->id) ?>">Pregled proizvoda</a></li>
                             <li><a class="dropdown-item" href="/brand/<?= $brand->id ?>">Pogledaj brend</a></li>
                         </ul>

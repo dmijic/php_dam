@@ -178,7 +178,7 @@ if (!Session::get('user')) {
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="../img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="<?= Framework\Session::get('user')['user_img_url'] ?>" alt="Profile" class="">
                     <span class="d-none d-md-block dropdown-toggle ps-2"><?= Framework\Session::get('user')['username'] ?></span>
                 </a><!-- End Profile Iamge Icon -->
 

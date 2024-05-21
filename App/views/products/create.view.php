@@ -43,7 +43,7 @@ loadPartial('sidebar');
                             <div class="row mb-3">
                                 <label for="product_image_url" class="col-form-label">Slika proizvoda</label>
                                 <div class="col-sm-12">
-                                    <input class="form-control" type="file" id="formFile" name="product_image_url">
+                                    <input class="form-control" type="file" id="product_image_url" name="product_image_url">
                                 </div>
                             </div>
                             <div class="row mb-3">

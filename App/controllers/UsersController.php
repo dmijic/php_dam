@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Framework\Database;
 use Framework\Validation;
 use Framework\Session;
+use Framework\FileStorage;
 
 class UsersController
 {
@@ -24,7 +25,7 @@ class UsersController
     public function index()
     {
         $users = $this->db->query('SELECT * FROM users')->fetchAll();
-        loadView('users/index', ['products' => $users]);
+        loadView('users/index', ['users' => $users]);
     }
 
     /**
@@ -74,7 +75,11 @@ class UsersController
      */
     public function store()
     {
+        $storage = new FileStorage($_FILES, $_POST);
+
         $name = $_POST['name'];
+        $imageKey = $storage->getImgKey();
+        $user_img_url = $storage->returnImgUrl();
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -143,12 +148,15 @@ class UsersController
         $params = [
             'name' => $name,
             'email' => $email,
+            'user_img_url' => $user_img_url,
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'role' => $role
         ];
 
-        $this->db->query('INSERT INTO users (name, email, username, password, role) VALUES (:name, :email, :username, :password, :role)', $params);
+        $storage->uploadImage();
+
+        $this->db->query('INSERT INTO users (name, email, username, password, role, user_img_url) VALUES (:name, :email, :username, :password, :role, :user_img_url)', $params);
 
         // Get new user ID
         $userId = $this->db->conn->lastInsertId();
@@ -158,7 +166,8 @@ class UsersController
             'name' => $name,
             'username' => $username,
             'email' => $email,
-            'role' => $role
+            'role' => $role,
+            'user_img_url' => $user_img_url
         ]);
 
         redirect('/');

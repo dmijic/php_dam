@@ -50,4 +50,21 @@ class Validation
 
         return $value1 === $value2;
     }
+
+    /**
+     * Check images
+     * 
+     * @param array $file
+     * @return bool
+     */
+    public static function image($file)
+    {
+        $mime_types = ['image/jpg', 'image/png', 'image/jpeg'];
+        foreach ($file as $key => $value) {
+            if (isset($value['type']) && !in_array($value['type'], $mime_types)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

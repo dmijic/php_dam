@@ -5,15 +5,9 @@
             <div class="card">
                 <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <h2>Kevin Anderson</h2>
-                    <h3>Web Designer</h3>
-                    <div class="social-links mt-2">
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                    </div>
+                    <img src="<?= Framework\Session::get('user')['user_img_url'] ?>" alt="Profile" class="rounded-circle">
+                    <h2><?= Framework\Session::get('user')['name'] ?></h2>
+                    <h3><?= Framework\Session::get('user')['role'] ?></h3>
                 </div>
             </div>
 
@@ -27,63 +21,48 @@
                     <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Overview</button>
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Informacije</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" tabindex="-1" role="tab">Edit Profile</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit" aria-selected="false" tabindex="-1" role="tab">Uredi</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" aria-selected="false" tabindex="-1" role="tab">Settings</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings" aria-selected="false" tabindex="-1" role="tab">Još nešto</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password" aria-selected="false" tabindex="-1" role="tab">Change Password</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password" aria-selected="false" tabindex="-1" role="tab">Još nešto</button>
                         </li>
 
                     </ul>
                     <div class="tab-content pt-2">
 
                         <div class="tab-pane fade show active profile-overview" id="profile-overview" role="tabpanel">
-                            <h5 class="card-title">About</h5>
+                            <h5 class="card-title">Ime</h5>
                             <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
 
-                            <h5 class="card-title">Profile Details</h5>
+                            <h5 class="card-title">Osobni podaci</h5>
 
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                                <div class="col-lg-3 col-md-4 label ">Ime i prezime</div>
+                                <div class="col-lg-9 col-md-8"><?= Framework\Session::get('user')['name'] ?></div>
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Company</div>
-                                <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
+                                <div class="col-lg-3 col-md-4 label">Email adresa</div>
+                                <div class="col-lg-9 col-md-8"><?= Framework\Session::get('user')['email'] ?></div>
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Job</div>
-                                <div class="col-lg-9 col-md-8">Web Designer</div>
+                                <div class="col-lg-3 col-md-4 label">Rola</div>
+                                <div class="col-lg-9 col-md-8"><?= Framework\Session::get('user')['role'] ?></div>
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Country</div>
-                                <div class="col-lg-9 col-md-8">USA</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Address</div>
-                                <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Phone</div>
-                                <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 label">Email</div>
-                                <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                                <div class="col-lg-3 col-md-4 label">Username</div>
+                                <div class="col-lg-9 col-md-8"><?= Framework\Session::get('user')['username'] ?></div>
                             </div>
 
                         </div>

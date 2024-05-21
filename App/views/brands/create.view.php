@@ -37,7 +37,7 @@ loadPartial('sidebar');
 
 
                         <!-- General Form Elements -->
-                        <form method="POST" action="/brands">
+                        <form method="POST" action="/brands" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <label for="brand_name" class="col-form-label">Naziv brenda</label>
                                 <div class="col-sm-12">

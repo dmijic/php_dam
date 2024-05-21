@@ -4,15 +4,18 @@ namespace App\Controllers;
 
 use Framework\Database;
 use Framework\Validation;
+use Framework\FileStorage;
 
 class ProductController
 {
     protected $db;
+    protected $storage;
 
     public function __construct()
     {
         $config = require basePath('config/db.php');
         $this->db = new Database($config);
+        $this->storage = new FileStorage($_FILES, $_POST);
     }
 
     /**
@@ -52,6 +55,7 @@ class ProductController
         }
 
         $this->db->query('DELETE FROM products WHERE id = :id', $params);
+        $this->storage->deleteImage($product->product_image_url);
 
         // Set flash message
         $_SESSION['success_message'] = "Proizvod <strong>{$product->name}</strong> je obrisan.";

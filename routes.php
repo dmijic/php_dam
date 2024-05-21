@@ -2,69 +2,69 @@
 
 use App\Controllers\UsersController;
 
-$router->get('/', 'HomeController@index');
+$router->get('/', 'HomeController@index', ['user']);
 
 //Products
-$router->get('/products', 'ProductsController@index');
-$router->get('/products/create', 'ProductsController@create');
-$router->get('/products/{brand}', 'ProductsController@by_brand');
+$router->get('/products', 'ProductsController@index', ['user']);
+$router->get('/products/create', 'ProductsController@create', ['admin']);
+$router->get('/products/{brand}', 'ProductsController@by_brand', ['user']);
 
-$router->post('/products', 'ProductsController@store');
+$router->post('/products', 'ProductsController@store', ['admin']);
 
 
 //Single product
-$router->get('/product/{id}', 'ProductController@index');
+$router->get('/product/{id}', 'ProductController@index', ['user']);
 
-$router->put('/product/{id}', 'ProductController@update');
+$router->put('/product/{id}', 'ProductController@update', ['admin']);
 
-$router->delete('/product/{id}', 'ProductController@destroy');
+$router->delete('/product/{id}', 'ProductController@destroy', ['admin']);
 
 
 //Brands
-$router->get('/brands', 'BrandsController@index');
-$router->get('/brands/create', 'BrandsController@create');
+$router->get('/brands', 'BrandsController@index', ['user']);
+$router->get('/brands/create', 'BrandsController@create', ['admin']);
 
-$router->post('/brands', 'BrandsController@store');
+$router->post('/brands', 'BrandsController@store', ['admin']);
 
 
 //Single brand
-$router->get('/brand/{id}', 'BrandController@index');
+$router->get('/brand/{id}', 'BrandController@index', ['user']);
 
-$router->put('/brand/{id}', 'BrandController@update');
+$router->put('/brand/{id}', 'BrandController@update', ['admin']);
 
-$router->delete('/brand/{id}', 'BrandController@destroy');
+$router->delete('/brand/{id}', 'BrandController@destroy', ['admin']);
 
 
 
 //Ingredients
-$router->get('/ingredients', 'IngredientsController@index');
-$router->get('/ingredients/create', 'IngredientsController@create');
+$router->get('/ingredients', 'IngredientsController@index', ['user']);
+$router->get('/ingredients/create', 'IngredientsController@create', ['admin']);
 
-$router->post('/ingredients', 'IngredientsController@store');
+$router->post('/ingredients', 'IngredientsController@store', ['admin']);
 
 
 //Claims
-$router->get('/claims', 'ClaimsController@index');
-$router->get('/claims/create', 'ClaimsController@create');
+$router->get('/claims', 'ClaimsController@index', ['user']);
+$router->get('/claims/create', 'ClaimsController@create', ['admin']);
 
-$router->post('/claims', 'CLaimsController@store');
+$router->post('/claims', 'CLaimsController@store', ['admin']);
 
 
 //Social media
-$router->get('/social_media', 'SocialMediaController@index');
-$router->get('/social_media/by_brand', 'SocialMediaController@by_brand');
-$router->get('/social_media/single_post/{id}', 'SocialMediaController@single_post');
-$router->get('/social_media/create', 'SocialMediaController@create');
+$router->get('/social_media', 'SocialMediaController@index', ['user']);
+$router->get('/social_media/by_brand', 'SocialMediaController@by_brand', ['user']);
+$router->get('/social_media/single_post/{id}', 'SocialMediaController@single_post', ['user']);
+$router->get('/social_media/create', 'SocialMediaController@store', ['admin']);
 
 //Users
-$router->get('/my-profile', 'UsersController@index');
-$router->get('/new-user', 'UsersController@create');
+$router->get('/my-profile', 'UsersController@index', ['user']);
+$router->get('/new-user', 'UsersController@create', ['guest']);
 
-$router->get('/my-account', 'UsersController@account');
-$router->get('/help', 'UsersController@help');
+$router->get('/my-account', 'UsersController@account', ['user']);
+$router->get('/help', 'UsersController@help', ['user']);
 
-$router->get('/login', 'UsersController@login');
+$router->get('/login', 'UsersController@login', ['guest']);
 
-$router->post('/new-user', 'UsersController@store');
-$router->post('/logout', 'UsersController@logout');
-$router->post('/login', 'UsersController@authenticate');
+$router->post('/new-user', 'UsersController@store', ['guest']);
+$router->post('/logout', 'UsersController@logout', ['user']);
+$router->post('/login', 'UsersController@authenticate', ['guest']);

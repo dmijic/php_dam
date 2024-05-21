@@ -28,11 +28,18 @@ loadPartial('head');
 
                                 <?= loadPartial('errors', ['errors' => $errors ?? []]) ?>
 
-                                <form class="row g-3 needs-validation" novalidate="" method="POST" action="/new-user">
+                                <form class="row g-3 needs-validation" novalidate="" method="POST" action="/new-user" enctype="multipart/form-data">
                                     <div class="col-12">
                                         <label for="name" class="form-label">Ime i prezime</label>
                                         <input type="text" name="name" class="form-control" id="name" required="" value="<?= $user['name'] ?? '' ?>">
                                         <div class="invalid-feedback">Molimo upišite ime!</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="user_img_url" class="col-form-label">Učitajte fotografiju</label>
+                                        <div class="col-sm-12">
+                                            <input class="form-control" type="file" id="user_img_url" name="user_img_url">
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
