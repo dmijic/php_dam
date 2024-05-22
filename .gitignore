@@ -1,5 +1,5 @@
 /vendor
-/node_mogules
+/node_modules
 /config/db.php
 /public/storage/
 .env
