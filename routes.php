@@ -47,7 +47,7 @@ $router->post('/ingredients', 'IngredientsController@store', ['admin']);
 $router->get('/claims', 'ClaimsController@index', ['user']);
 $router->get('/claims/create', 'ClaimsController@create', ['admin']);
 
-$router->post('/claims', 'CLaimsController@store', ['admin']);
+$router->post('/claims', 'ClaimsController@store', ['admin']);
 
 
 //Social media
@@ -68,3 +68,7 @@ $router->get('/login', 'UsersController@login', ['guest']);
 $router->post('/new-user', 'UsersController@store', ['guest']);
 $router->post('/logout', 'UsersController@logout', ['user']);
 $router->post('/login', 'UsersController@authenticate', ['guest']);
+
+
+// Search
+$router->get('/search-results', 'SearchController@search', ['user']);

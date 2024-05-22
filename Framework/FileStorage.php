@@ -37,7 +37,6 @@ class FileStorage
         foreach ($this->fileData as $key => $value) {
             $this->imageArrayKey = $key;
         }
-
         $this->fileRawData = $value;
         return $this->imageArrayKey;
     }
@@ -62,12 +61,14 @@ class FileStorage
          * 
          */
 
+        $imgKey = $this->getImgKey();
+
         if (str_contains($_SERVER['HTTP_REFERER'], 'brands')) {
             $this->typeOfAsset = 'brand_assets';
             $this->brandName = $this->postData['brand_name'];
         } else if (str_contains($_SERVER['HTTP_REFERER'], 'product')) {
             $params = ['id' => $this->postData['brand_id']];
-            $this->typeOfAsset = slugify($this->postData['name']);
+            $this->typeOfAsset = 'products/' . slugify($this->postData['name']);
             $this->brand = $this->db->query('SELECT * FROM brands WHERE id = :id', $params)->fetch();
             $this->brandName = $this->brand->brand_name;
         } else if (str_contains($_SERVER['HTTP_REFERER'], 'new-user')) {

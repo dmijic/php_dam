@@ -136,7 +136,7 @@ loadPartial('sidebar');
                                 <?php endif; ?>
 
                                 <!-- Profile Edit Form -->
-                                <form action="/product/<?= $product->id ?>" method="POST">
+                                <form action="/product/<?= $product->id ?>" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="_method" value="PUT">
 
                                     <div class="row mb-3">
@@ -168,7 +168,7 @@ loadPartial('sidebar');
                                         <label for="brand_id" class="col-md-4 col-lg-3 col-form-label">Brend</label>
                                         <div class="col-md-8 col-lg-9">
                                             <select class="form-select" name="brand_id" aria-label="Default select example">
-                                                <option value="">Odaberite brend proizvoda</option>
+                                                <option value="<?= $product->brand_id ?? '' ?>">Odaberite brend proizvoda</option>
                                                 <?php foreach ($brands as $brand) : ?>
                                                     <option value="<?= $brand->id ?>"><?= $brand->brand_name ?></option>
                                                 <?php endforeach; ?>

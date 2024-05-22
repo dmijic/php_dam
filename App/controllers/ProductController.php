@@ -71,6 +71,7 @@ class ProductController
      */
     public function update($params)
     {
+        $this->storage = new FileStorage($_FILES, $_POST);
 
         $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
         $brand = $this->db->query('SELECT * FROM brands WHERE id = ' . $product->brand_id)->fetch();
@@ -85,6 +86,8 @@ class ProductController
         $updateValues = array_intersect_key($_POST, array_flip($allowedFields));
         $updateValues = array_map('sanitize', $updateValues);
         $requiredFields = ['name'];
+
+        $updateValues[$this->storage->getImgKey()] = $this->storage->returnImgUrl();
 
         $errors = [];
 
@@ -116,6 +119,9 @@ class ProductController
             $updateQuery = "UPDATE products SET $updateFields WHERE id = :id";
 
             $updateValues['id'] = $id;
+
+            $this->storage->uploadImage();
+
             $this->db->query($updateQuery, $updateValues);
 
             $_SESSION['success_message'] = 'Podaci su ažurirani.';

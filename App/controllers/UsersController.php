@@ -244,7 +244,8 @@ class UsersController
             'name' => $user->name,
             'username' => $user->username,
             'email' => $user->email,
-            'role' => $user->role
+            'role' => $user->role,
+            'user_img_url' => $user->user_img_url
         ]);
 
         redirect('/');
