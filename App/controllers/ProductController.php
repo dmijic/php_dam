@@ -79,6 +79,8 @@ class ProductController
         $ingredients = $this->db->query('SELECT * FROM ingredients')->fetchAll();
         $claims = $this->db->query('SELECT * FROM claims')->fetchAll();
 
+        $imageKey = $this->storage->getImgKey();
+
         $id = $params['id'];
 
         $allowedFields = ['name', 'product_description', 'product_image_url', 'brand_id', 'quantity', 'active_ingredients', 'suggested_use', 'remark'];
@@ -87,7 +89,13 @@ class ProductController
         $updateValues = array_map('sanitize', $updateValues);
         $requiredFields = ['name'];
 
-        $updateValues[$this->storage->getImgKey()] = $this->storage->returnImgUrl();
+        if ($_FILES[$imageKey]['name'] != '') {
+            $updateValues[$imageKey] = $this->storage->returnImgUrl();
+        } elseif ($product->product_image_url != '') {
+            $updateValues[$imageKey] = $product->product_image_url;
+        } else {
+            $updateValues[$imageKey] = '';
+        }
 
         $errors = [];
 
@@ -120,7 +128,9 @@ class ProductController
 
             $updateValues['id'] = $id;
 
-            $this->storage->uploadImage();
+            if ($_FILES[$imageKey]['name'] != '') {
+                $this->storage->uploadImage();
+            }
 
             $this->db->query($updateQuery, $updateValues);
 
